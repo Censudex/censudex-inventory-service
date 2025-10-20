@@ -24,6 +24,8 @@ using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
     dbContext.Database.Migrate();
+    var seeder = new DataSeeder(dbContext);
+    await seeder.SeedAsync();
 }
 
 if (app.Environment.IsDevelopment())
