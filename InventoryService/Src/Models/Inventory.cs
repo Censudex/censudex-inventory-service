@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace InventoryService.Src.Models
 {
-    public class Eventory
+    public class Inventory
     {
         public Guid ProductId { get; set; }
         public string ProductName { get; set; } = string.Empty;
