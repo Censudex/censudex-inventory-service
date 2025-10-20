@@ -48,25 +48,7 @@ namespace InventoryService.Src.Data.Migrations
 
                     b.HasKey("ProductId");
 
-                    b.ToTable("Inventories");
-
-                    b.HasData(
-                        new
-                        {
-                            ProductId = new Guid("a1b2c3d4-e5f6-4a5b-8c9d-0e1f2a3b4c5d"),
-                            ProductCategory = "Category A",
-                            ProductName = "Sample Product 1",
-                            ProductStatus = true,
-                            StockQuantity = 50
-                        },
-                        new
-                        {
-                            ProductId = new Guid("b1c2d3e4-f5a6-4b5c-9d0e-1f2a3b4c5d6e"),
-                            ProductCategory = "Category B",
-                            ProductName = "Sample Product 2",
-                            ProductStatus = true,
-                            StockQuantity = 30
-                        });
+                    b.ToTable("Inventory");
                 });
 #pragma warning restore 612, 618
         }

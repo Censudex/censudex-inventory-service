@@ -17,7 +17,7 @@ namespace InventoryService.Src.Data
 
         public async Task SeedAsync()
         {
-            if (!_dbContext.Inventories.Any())
+            if (!_dbContext.Inventory.Any())
             {
                 var inventoryItems = new List<Inventory>
                 {
@@ -26,7 +26,7 @@ namespace InventoryService.Src.Data
                     new Inventory { ProductName = "Product C", ProductCategory = "Category 3", StockQuantity = 300, ProductStatus = true }
                 };
 
-                await _dbContext.Inventories.AddRangeAsync(inventoryItems);
+                await _dbContext.Inventory.AddRangeAsync(inventoryItems);
                 await _dbContext.SaveChangesAsync();
             }
         }

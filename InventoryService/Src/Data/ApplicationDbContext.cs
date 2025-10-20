@@ -14,7 +14,7 @@ namespace InventoryService.Src.Data
         {
         }
 
-        public DbSet<Inventory> Inventories { get; set; }
+        public DbSet<Inventory> Inventory  { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

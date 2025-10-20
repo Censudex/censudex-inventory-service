@@ -3,8 +3,6 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
-
 namespace InventoryService.Src.Data.Migrations
 {
     /// <inheritdoc />
@@ -14,7 +12,7 @@ namespace InventoryService.Src.Data.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Inventories",
+                name: "Inventory",
                 columns: table => new
                 {
                     ProductId = table.Column<Guid>(type: "uuid", nullable: false),
@@ -25,16 +23,7 @@ namespace InventoryService.Src.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Inventories", x => x.ProductId);
-                });
-
-            migrationBuilder.InsertData(
-                table: "Inventories",
-                columns: new[] { "ProductId", "ProductCategory", "ProductName", "ProductStatus", "StockQuantity" },
-                values: new object[,]
-                {
-                    { new Guid("a1b2c3d4-e5f6-4a5b-8c9d-0e1f2a3b4c5d"), "Category A", "Sample Product 1", true, 50 },
-                    { new Guid("b1c2d3e4-f5a6-4b5c-9d0e-1f2a3b4c5d6e"), "Category B", "Sample Product 2", true, 30 }
+                    table.PrimaryKey("PK_Inventory", x => x.ProductId);
                 });
         }
 
@@ -42,7 +31,7 @@ namespace InventoryService.Src.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Inventories");
+                name: "Inventory");
         }
     }
 }
