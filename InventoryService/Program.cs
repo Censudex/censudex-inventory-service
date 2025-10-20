@@ -1,5 +1,7 @@
 using DotNetEnv;
 using InventoryService.Src.Data;
+using InventoryService.Src.Interface;
+using InventoryService.Src.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 Env.Load();
@@ -7,6 +9,8 @@ Env.Load();
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddOpenApi();
+builder.Services.AddControllers();
+builder.Services.AddScoped<IInventoryRepository, InventoryRepository>();
 
 var connectionString = $"Host={Environment.GetEnvironmentVariable("SUPABASE_HOST")};" +
                       $"Port={Environment.GetEnvironmentVariable("SUPABASE_PORT")};" +
@@ -34,4 +38,5 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.MapControllers();
 app.Run();
