@@ -37,7 +37,31 @@ namespace InventoryService.Src.Controllers
             catch (Exception)
             {
                 return StatusCode(500, new { message = "An error occurred while retrieving inventory items." });
-            }   
+            }
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetInventoryItemById(Guid id)
+        {
+            try
+            {
+                var item = await _inventoryRepository.GetInventoryItemByIdAsync(id);
+                var response = new ApiResponse<ItemDto>
+                {
+                    Success = true,
+                    Message = "Inventory item retrieved successfully",
+                    Data = item
+                };
+                return Ok(response);
+            }
+            catch (KeyNotFoundException)
+            {
+                return NotFound(new { message = "Inventory item not found." });
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, new { message = "An error occurred while retrieving the inventory item." });
+            }
         }
     }
 }

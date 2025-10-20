@@ -1,0 +1,23 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using InventoryService.Src.Dtos;
+using InventoryService.Src.Models;
+
+namespace InventoryService.Src.Mappings
+{
+    public class InventoryMapper
+    {
+        public static ItemDto ToItemDto(Inventory inventory)
+        {
+            return new ItemDto
+            {
+                ProductId = inventory.ProductId,
+                ProductName = inventory.ProductName,
+                ProductCategory = inventory.ProductCategory,
+                StockQuantity = inventory.StockQuantity
+            };
+        }
+    }
+}
