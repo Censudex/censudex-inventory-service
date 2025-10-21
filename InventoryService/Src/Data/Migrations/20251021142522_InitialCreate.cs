@@ -19,7 +19,10 @@ namespace InventoryService.Src.Data.Migrations
                     ProductName = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     ProductCategory = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     StockQuantity = table.Column<int>(type: "integer", nullable: false),
-                    ProductStatus = table.Column<bool>(type: "boolean", nullable: false, defaultValue: true)
+                    ProductStatus = table.Column<bool>(type: "boolean", nullable: false, defaultValue: true),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, defaultValueSql: "NOW()"),
+                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    DeletedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
