@@ -7,6 +7,7 @@ namespace InventoryService.Src.Dtos
 {
     public class UpdateOperationDto
     {
+        public bool Success { get; set; }
         public Guid ProductId { get; set; }
         public string ProductName { get; set; } = string.Empty;
         public string ProductCategory { get; set; } = string.Empty;
