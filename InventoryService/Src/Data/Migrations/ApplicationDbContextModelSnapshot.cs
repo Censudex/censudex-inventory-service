@@ -28,6 +28,14 @@ namespace InventoryService.Src.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValueSql("NOW()");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<string>("ProductCategory")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -45,6 +53,9 @@ namespace InventoryService.Src.Data.Migrations
 
                     b.Property<int>("StockQuantity")
                         .HasColumnType("integer");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("ProductId");
 

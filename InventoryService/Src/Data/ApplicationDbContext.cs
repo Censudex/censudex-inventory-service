@@ -27,7 +27,40 @@ namespace InventoryService.Src.Data
                 entity.Property(e => e.ProductCategory).IsRequired().HasMaxLength(100);
                 entity.Property(e => e.StockQuantity).IsRequired();
                 entity.Property(e => e.ProductStatus).IsRequired().HasDefaultValue(true);
+                entity.Property(e => e.CreatedAt).IsRequired().HasDefaultValueSql("NOW()");
+                entity.Property(e => e.UpdatedAt).IsRequired(false);
+                entity.Property(e => e.DeletedAt).IsRequired(false);
             });
+        }
+
+        public override int SaveChanges()
+        {
+            UpdateTimestamps();
+            return base.SaveChanges();
+        }
+
+        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            UpdateTimestamps();
+            return await base.SaveChangesAsync(cancellationToken);
+        }
+
+        private void UpdateTimestamps()
+        {
+            var entries = ChangeTracker.Entries<Inventory>();
+            var utcNow = DateTime.UtcNow;
+
+            foreach (var entry in entries)
+            {
+                if (entry.State == EntityState.Added)
+                {
+                    entry.Entity.CreatedAt = utcNow;
+                }
+                else if (entry.State == EntityState.Modified)
+                {
+                    entry.Entity.UpdatedAt = utcNow;
+                }
+            }
         }
     }
 }

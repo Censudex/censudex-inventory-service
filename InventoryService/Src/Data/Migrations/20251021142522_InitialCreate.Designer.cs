@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace InventoryService.Src.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20251020221124_InitialCreate")]
+    [Migration("20251021142522_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -31,6 +31,14 @@ namespace InventoryService.Src.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValueSql("NOW()");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<string>("ProductCategory")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -48,6 +56,9 @@ namespace InventoryService.Src.Data.Migrations
 
                     b.Property<int>("StockQuantity")
                         .HasColumnType("integer");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("ProductId");
 
