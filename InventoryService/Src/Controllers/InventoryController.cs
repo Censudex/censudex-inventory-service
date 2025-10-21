@@ -63,5 +63,37 @@ namespace InventoryService.Src.Controllers
                 return StatusCode(500, new { message = "An error occurred while retrieving the inventory item." });
             }
         }
+
+        [HttpPatch("{id}")]
+        public async Task<IActionResult> UpdateInventoryItemStock(Guid id, [FromBody] UpdateStockDto updateStockDto)
+        {
+            try
+            {
+                var updateResult = await _inventoryRepository.UpdateInventoryItemStockAsync(id, updateStockDto);
+                var response = new ApiResponse<UpdateOperationDto>
+                {
+                    Success = true,
+                    Message = "Inventory item stock updated successfully",
+                    Data = updateResult
+                };
+                return Ok(response);
+            }
+            catch (KeyNotFoundException)
+            {
+                return NotFound(new { message = "Inventory item not found." });
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, new { message = "An error occurred while updating the inventory item stock." });
+            }
+        }
     }
 }

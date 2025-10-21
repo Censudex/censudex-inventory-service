@@ -19,5 +19,19 @@ namespace InventoryService.Src.Mappings
                 StockQuantity = inventory.StockQuantity
             };
         }
+
+        public static UpdateOperationDto ToUpdateOperationDto(Inventory inventory, UpdateStockDto updateStockDto, int previousStock)
+        {
+            return new UpdateOperationDto
+            {
+                ProductId = inventory.ProductId,
+                ProductName = inventory.ProductName,
+                ProductCategory = inventory.ProductCategory,
+                PreviousStock = previousStock,
+                UpdatedStock = inventory.StockQuantity,
+                Operation = updateStockDto.Operation,
+                QuantityChanged = updateStockDto.Quantity,
+            };
+        }
     }
 }
