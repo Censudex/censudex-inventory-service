@@ -2,6 +2,8 @@ using DotNetEnv;
 using InventoryService.Src.Data;
 using InventoryService.Src.Interface;
 using InventoryService.Src.Repositories;
+using InventoryService.Src.Shared.Messages;
+using MassTransit;
 using Microsoft.EntityFrameworkCore;
 
 Env.Load();
@@ -21,6 +23,23 @@ var connectionString = $"Host={Environment.GetEnvironmentVariable("SUPABASE_HOST
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(connectionString));
+
+builder.Services.AddMassTransit(x =>
+{
+    x.UsingRabbitMq((context, cfg) =>
+    {
+        cfg.Host(Environment.GetEnvironmentVariable("RABBITMQ_HOST") ?? "localhost", "/", h =>
+        {
+            h.Username(Environment.GetEnvironmentVariable("RABBITMQ_USERNAME") ?? "guest");
+            h.Password(Environment.GetEnvironmentVariable("RABBITMQ_PASSWORD") ?? "guest");
+        });
+
+        cfg.Send<StockAlertMessage>(s =>
+        {
+            s.UseRoutingKeyFormatter(context => "stock.low");
+        });                 
+    });
+});
 
 var app = builder.Build();
 
