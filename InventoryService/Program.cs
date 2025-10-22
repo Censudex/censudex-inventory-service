@@ -2,6 +2,8 @@ using DotNetEnv;
 using InventoryService.Src.Data;
 using InventoryService.Src.Interface;
 using InventoryService.Src.Repositories;
+using InventoryService.Src.Shared.Messages;
+using MassTransit;
 using Microsoft.EntityFrameworkCore;
 
 Env.Load();
@@ -11,6 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddOpenApi();
 builder.Services.AddControllers();
 builder.Services.AddScoped<IInventoryRepository, InventoryRepository>();
+builder.Services.AddScoped<IInventoryService, InventoryService.Src.Service.InventoryService>();
 
 var connectionString = $"Host={Environment.GetEnvironmentVariable("SUPABASE_HOST")};" +
                       $"Port={Environment.GetEnvironmentVariable("SUPABASE_PORT")};" +
@@ -21,6 +24,25 @@ var connectionString = $"Host={Environment.GetEnvironmentVariable("SUPABASE_HOST
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(connectionString));
+
+builder.Services.AddMassTransit(x =>
+{
+    x.UsingRabbitMq((context, cfg) =>
+    {
+        cfg.Host("localhost", "/", h =>
+        {
+            h.Username("guest");
+            h.Password("guest");
+        });
+
+        cfg.Send<StockAlertMessage>(s =>
+        {
+            s.UseRoutingKeyFormatter(context => "stock.low");
+        });          
+
+        cfg.ConfigureEndpoints(context);       
+    });
+});
 
 var app = builder.Build();
 

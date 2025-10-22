@@ -21,9 +21,9 @@ namespace InventoryService.Src.Data
             {
                 var inventoryItems = new List<Inventory>
                 {
-                    new Inventory { ProductName = "Product A", ProductCategory = "Category 1", StockQuantity = 100, ProductStatus = true },
-                    new Inventory { ProductName = "Product B", ProductCategory = "Category 2", StockQuantity = 200, ProductStatus = true },
-                    new Inventory { ProductName = "Product C", ProductCategory = "Category 3", StockQuantity = 300, ProductStatus = true }
+                    new Inventory { ProductName = "Product A", ProductCategory = "Category 1", StockQuantity = 100, ProductStatus = true, ThresholdLimit = 10 },
+                    new Inventory { ProductName = "Product B", ProductCategory = "Category 2", StockQuantity = 200, ProductStatus = true, ThresholdLimit = 20 },
+                    new Inventory { ProductName = "Product C", ProductCategory = "Category 3", StockQuantity = 300, ProductStatus = true, ThresholdLimit = 30 }
                 };
 
                 await _dbContext.Inventory.AddRangeAsync(inventoryItems);

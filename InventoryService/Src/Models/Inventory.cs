@@ -12,6 +12,7 @@ namespace InventoryService.Src.Models
         public string ProductCategory { get; set; } = string.Empty;
         public int StockQuantity { get; set; }
         public bool ProductStatus { get; set; } = true;
+        public int ThresholdLimit { get; set; } = 0;
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public DateTime? UpdatedAt { get; set; }
         public DateTime? DeletedAt { get; set; }
