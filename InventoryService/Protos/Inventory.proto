@@ -44,11 +44,15 @@ message UpdateInventoryItemStockResponse {
 }
 
 message UpdateOperation {
-  string product_id = 1;        
-  string product_name = 2;
-  string product_category = 3;
-  int32 previous_stock = 4;
-  int32 updated_stock = 5;
-  string operation = 6;
-  int32 quantity_changed = 7;
+    bool success = 1;
+    string message = 2;
+    string product_id = 3;        
+    string product_name = 4;
+    string product_category = 5;
+    int32 previous_stock = 6;
+    int32 updated_stock = 7;
+    string operation = 8;
+    int32 quantity_changed = 9;
+    string alert = 10;
 }
+
