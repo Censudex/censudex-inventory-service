@@ -14,10 +14,12 @@ namespace InventoryService.Src.Controllers
     public class InventoryController : ControllerBase
     {
         private readonly IInventoryRepository _inventoryRepository;
+        private readonly IInventoryService _inventoryService;
 
-        public InventoryController(IInventoryRepository inventoryRepository)
+        public InventoryController(IInventoryRepository inventoryRepository, IInventoryService inventoryService)
         {
             _inventoryRepository = inventoryRepository;
+            _inventoryService = inventoryService;
         }
 
         [HttpGet]
@@ -45,7 +47,7 @@ namespace InventoryService.Src.Controllers
         {
             try
             {
-                var item = await _inventoryRepository.GetInventoryItemByIdAsync(id);
+                var item = await _inventoryRepository.GetInventoryItemDtoByIdAsync(id);
                 var response = new ApiResponse<ItemDto>
                 {
                     Success = true,
@@ -67,15 +69,33 @@ namespace InventoryService.Src.Controllers
         [HttpPatch("{id}")]
         public async Task<IActionResult> UpdateInventoryItemStock(Guid id, [FromBody] UpdateStockDto updateStockDto)
         {
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            
+            if (updateStockDto.Quantity <= 0)
+            {
+                return BadRequest(new { message = "Invalid quantity. Quantity must be greater than zero." });
+            }
+            
             try
             {
-                var updateResult = await _inventoryRepository.UpdateInventoryItemStockAsync(id, updateStockDto);
+                var updateResult = await _inventoryService.UpdateInventoryItemStockAsync(id, updateStockDto);
+                
+                if (!updateResult.Success)
+                {
+                    throw new InvalidOperationException(updateResult.Message);
+                }
+
                 var response = new ApiResponse<UpdateOperationDto>
                 {
                     Success = true,
                     Message = "Inventory item stock updated successfully",
                     Data = updateResult
                 };
+                
                 return Ok(response);
             }
             catch (KeyNotFoundException)

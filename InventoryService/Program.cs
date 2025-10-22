@@ -13,6 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddOpenApi();
 builder.Services.AddControllers();
 builder.Services.AddScoped<IInventoryRepository, InventoryRepository>();
+builder.Services.AddScoped<IInventoryService, InventoryService.Src.Service.InventoryService>();
 
 var connectionString = $"Host={Environment.GetEnvironmentVariable("SUPABASE_HOST")};" +
                       $"Port={Environment.GetEnvironmentVariable("SUPABASE_PORT")};" +
@@ -28,16 +29,18 @@ builder.Services.AddMassTransit(x =>
 {
     x.UsingRabbitMq((context, cfg) =>
     {
-        cfg.Host(Environment.GetEnvironmentVariable("RABBITMQ_HOST") ?? "localhost", "/", h =>
+        cfg.Host("localhost", "/", h =>
         {
-            h.Username(Environment.GetEnvironmentVariable("RABBITMQ_USERNAME") ?? "guest");
-            h.Password(Environment.GetEnvironmentVariable("RABBITMQ_PASSWORD") ?? "guest");
+            h.Username("guest");
+            h.Password("guest");
         });
 
         cfg.Send<StockAlertMessage>(s =>
         {
             s.UseRoutingKeyFormatter(context => "stock.low");
-        });                 
+        });          
+
+        cfg.ConfigureEndpoints(context);       
     });
 });
 

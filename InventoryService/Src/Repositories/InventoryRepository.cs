@@ -25,10 +25,16 @@ namespace InventoryService.Src.Repositories
             return await _context.Inventory.ToListAsync();
         }
 
-        public async Task<ItemDto> GetInventoryItemByIdAsync(Guid id)
+        public async Task<Inventory> GetInventoryEntityByIdAsync(Guid id)
         {
             var inventoryItem = await _context.Inventory.FindAsync(id) ?? throw new KeyNotFoundException("Inventory item not found.");
-            return InventoryMapper.ToItemDto(inventoryItem);
+            return inventoryItem;
+        }
+
+        public async Task<ItemDto> GetInventoryItemDtoByIdAsync(Guid id)
+        {
+            var inventoryItem = await _context.Inventory.FindAsync(id) ?? throw new KeyNotFoundException("Inventory item not found.");
+            return inventoryItem.ToItemDto();
         }
 
         public async Task<Inventory> UpdateInventoryItem(Inventory item)

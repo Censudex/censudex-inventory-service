@@ -4,12 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using InventoryService.Src.Dtos;
 using InventoryService.Src.Models;
+using InventoryService.Src.Shared.Messages;
 
 namespace InventoryService.Src.Mappings
 {
-    public class InventoryMapper
+    public static class InventoryMapper
     {
-        public static ItemDto ToItemDto(Inventory inventory)
+        public static ItemDto ToItemDto(this Inventory inventory)
         {
             return new ItemDto
             {
@@ -20,7 +21,7 @@ namespace InventoryService.Src.Mappings
             };
         }
 
-        public static UpdateOperationDto ToUpdateOperationDto(Inventory inventory, UpdateStockDto updateStockDto, int previousStock)
+        public static UpdateOperationDto ToUpdateOperationDto(this Inventory inventory, UpdateStockDto updateStockDto, int previousStock)
         {
             return new UpdateOperationDto
             {

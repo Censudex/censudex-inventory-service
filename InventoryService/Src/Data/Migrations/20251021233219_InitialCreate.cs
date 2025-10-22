@@ -20,6 +20,7 @@ namespace InventoryService.Src.Data.Migrations
                     ProductCategory = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     StockQuantity = table.Column<int>(type: "integer", nullable: false),
                     ProductStatus = table.Column<bool>(type: "boolean", nullable: false, defaultValue: true),
+                    ThresholdLimit = table.Column<int>(type: "integer", nullable: false, defaultValue: 0),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, defaultValueSql: "NOW()"),
                     UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     DeletedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)

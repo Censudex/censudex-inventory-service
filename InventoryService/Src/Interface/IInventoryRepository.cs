@@ -10,7 +10,8 @@ namespace InventoryService.Src.Interface
     public interface IInventoryRepository
     {
         public Task<IEnumerable<Inventory>> GetAllInventoryItemsAsync();
-        public Task<ItemDto> GetInventoryItemByIdAsync(Guid id);
+        public Task<ItemDto> GetInventoryItemDtoByIdAsync(Guid id);
+        public Task<Inventory> GetInventoryEntityByIdAsync(Guid id);
         public Task<Inventory> UpdateInventoryItem(Inventory item);
     }
 }

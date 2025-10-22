@@ -27,6 +27,7 @@ namespace InventoryService.Src.Data
                 entity.Property(e => e.ProductCategory).IsRequired().HasMaxLength(100);
                 entity.Property(e => e.StockQuantity).IsRequired();
                 entity.Property(e => e.ProductStatus).IsRequired().HasDefaultValue(true);
+                entity.Property(e => e.ThresholdLimit).IsRequired().HasDefaultValue(0);
                 entity.Property(e => e.CreatedAt).IsRequired().HasDefaultValueSql("NOW()");
                 entity.Property(e => e.UpdatedAt).IsRequired(false);
                 entity.Property(e => e.DeletedAt).IsRequired(false);
