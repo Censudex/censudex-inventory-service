@@ -11,5 +11,7 @@ namespace InventoryService.Src.Dtos
         public string ProductName { get; set; } = string.Empty;
         public string ProductCategory { get; set; } = string.Empty;
         public int StockQuantity { get; set; }
+        public bool ProductStatus { get; set; } = true;
+        public int ThresholdLimit { get; set; } = 0;
     }
 }

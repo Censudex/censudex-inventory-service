@@ -17,7 +17,9 @@ namespace InventoryService.Src.Mappings
                 ProductId = inventory.ProductId,
                 ProductName = inventory.ProductName,
                 ProductCategory = inventory.ProductCategory,
-                StockQuantity = inventory.StockQuantity
+                StockQuantity = inventory.StockQuantity,
+                ProductStatus = inventory.ProductStatus,
+                ThresholdLimit = inventory.ThresholdLimit
             };
         }
 

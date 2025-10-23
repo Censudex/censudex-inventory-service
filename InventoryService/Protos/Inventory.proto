@@ -33,6 +33,8 @@ message InventoryItem {
     string product_name = 2;
     string product_category = 3;
     int32 product_stock = 4;
+    bool product_status = 5;
+    int32 threshold_limit = 6;
 }
 
 message GetInventoryItemByIdResponse {

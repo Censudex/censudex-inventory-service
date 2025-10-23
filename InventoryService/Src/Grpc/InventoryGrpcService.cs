@@ -36,6 +36,8 @@ namespace InventoryService.Src.Grpc
                         ProductName = item.ProductName,
                         ProductCategory = item.ProductCategory,
                         ProductStock = item.StockQuantity,
+                        ProductStatus = item.ProductStatus,
+                        ThresholdLimit = item.ThresholdLimit
                     });
                 }
 
@@ -61,6 +63,8 @@ namespace InventoryService.Src.Grpc
                         ProductName = item.ProductName,
                         ProductCategory = item.ProductCategory,
                         ProductStock = item.StockQuantity,
+                        ProductStatus = item.ProductStatus,
+                        ThresholdLimit = item.ThresholdLimit
                     }
                 };
 
