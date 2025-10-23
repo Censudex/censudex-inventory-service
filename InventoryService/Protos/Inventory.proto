@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+option csharp_namespace = "InventoryService.Protos";
+
+package inventory;
+
+service InventoryService {
+  rpc GetAllInventoryItems (GetAllInventoryItemsRequest) returns (GetAllInventoryItemsResponse);
+  rpc GetInventoryItemById (GetInventoryItemByIdRequest) returns (GetInventoryItemByIdResponse);
+  rpc UpdateInventoryItemStock (UpdateInventoryItemStockRequest) returns (UpdateInventoryItemStockResponse);
+}
+
+message GetAllInventoryItemsRequest {
+    
+}
+
+message GetInventoryItemByIdRequest {
+    string Item_id = 1;
+}
+
+message UpdateInventoryItemStockRequest {
+    string Item_id = 1;
+    string Operation = 2;
+    int32 Quantity = 3;
+}
+
+message GetAllInventoryItemsResponse {
+    repeated InventoryItem Items = 1;
+}
+
+message InventoryItem {
+    string product_id = 1;        
+    string product_name = 2;
+    string product_category = 3;
+    int32 product_stock = 4;
+}
+
+message GetInventoryItemByIdResponse {
+    InventoryItem Item = 1;
+}
+
+message UpdateInventoryItemStockResponse {
+    UpdateOperation Item = 1;
+}
+
+message UpdateOperation {
+    bool success = 1;
+    string message = 2;
+    string product_id = 3;        
+    string product_name = 4;
+    string product_category = 5;
+    int32 previous_stock = 6;
+    int32 updated_stock = 7;
+    string operation = 8;
+    int32 quantity_changed = 9;
+    string alert = 10;
+}
+

@@ -1,5 +1,6 @@
 using DotNetEnv;
 using InventoryService.Src.Data;
+using InventoryService.Src.Grpc;
 using InventoryService.Src.Interface;
 using InventoryService.Src.Repositories;
 using InventoryService.Src.Shared.Messages;
@@ -12,8 +13,17 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddOpenApi();
 builder.Services.AddControllers();
+builder.Services.AddGrpc();
 builder.Services.AddScoped<IInventoryRepository, InventoryRepository>();
 builder.Services.AddScoped<IInventoryService, InventoryService.Src.Service.InventoryService>();
+
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.ListenLocalhost(5001, o =>
+    {
+        o.Protocols = Microsoft.AspNetCore.Server.Kestrel.Core.HttpProtocols.Http2;
+    });
+});
 
 var connectionString = $"Host={Environment.GetEnvironmentVariable("SUPABASE_HOST")};" +
                       $"Port={Environment.GetEnvironmentVariable("SUPABASE_PORT")};" +
@@ -61,4 +71,5 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.MapControllers();
+app.MapGrpcService<InventoryGrpcService>();
 app.Run();

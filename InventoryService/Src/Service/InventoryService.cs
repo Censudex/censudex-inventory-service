@@ -89,8 +89,12 @@ namespace InventoryService.Src.Service
                 await _publishEndpoint.Publish(stockAlertMessage);
             }
 
+            updateOperationDto.Success = true;
+            updateOperationDto.Message = "Stock updated successfully.";
+
             await _inventoryRepository.UpdateInventoryItem(inventoryItem);
             return updateOperationDto;
         }
+
     }
 }
