@@ -80,38 +80,46 @@ namespace InventoryService.Src.Grpc
         {
             try
             {
+                if (!Guid.TryParse(request.ItemId, out var itemId))
+                {
+                    throw new RpcException(new Status(StatusCode.InvalidArgument, "Invalid ItemId format."));
+                }
+
                 var updateStockDto = new UpdateStockDto
                 {
                     Operation = request.Operation,
                     Quantity = request.Quantity
                 };
 
-                var updateResult = await _inventoryService.UpdateInventoryItemStockAsync(Guid.Parse(request.ItemId), updateStockDto);
+                var result = await _inventoryService.UpdateInventoryItemStockAsync(itemId, updateStockDto);
 
                 var response = new UpdateInventoryItemStockResponse
                 {
                     Item = new UpdateOperation
                     {
-                        ProductId = updateResult.ProductId.ToString(),
-                        ProductName = updateResult.ProductName,
-                        ProductCategory = updateResult.ProductCategory,
-                        PreviousStock = updateResult.PreviousStock,
-                        UpdatedStock = updateResult.UpdatedStock,
-                        Operation = updateResult.Operation,
-                        QuantityChanged = updateResult.QuantityChanged,
+                        Success = result.Success,
+                        Message = result.Message,
+                        ProductId = itemId.ToString(),
+                        ProductName = result.ProductName,
+                        ProductCategory = result.ProductCategory,
+                        PreviousStock = result.PreviousStock,
+                        UpdatedStock = result.UpdatedStock,
+                        Operation = result.Operation,
+                        QuantityChanged = result.QuantityChanged,
+                        Alert = result.Alert ?? ""
                     }
                 };
 
                 return response;
-            }
-            catch (KeyNotFoundException)
+                
+            } catch (RpcException)
             {
-                throw new RpcException(new Status(StatusCode.NotFound, "Inventory item not found."));
+                throw;
             }
             catch (Exception)
             {
-                throw new RpcException(new Status(StatusCode.Internal, "An error occurred while updating the inventory item."));
-            }   
+                throw new RpcException(new Status(StatusCode.Internal, "An error occurred while updating the inventory item stock."));
+            }
         }
     }
 }
