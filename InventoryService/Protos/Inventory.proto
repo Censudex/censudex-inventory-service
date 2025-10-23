@@ -35,6 +35,9 @@ message InventoryItem {
     int32 product_stock = 4;
     bool product_status = 5;
     int32 threshold_limit = 6;
+    string created_at = 7;
+    string updated_at = 8;
+    string deleted_at = 9;
 }
 
 message GetInventoryItemByIdResponse {

@@ -37,7 +37,10 @@ namespace InventoryService.Src.Grpc
                         ProductCategory = item.ProductCategory,
                         ProductStock = item.StockQuantity,
                         ProductStatus = item.ProductStatus,
-                        ThresholdLimit = item.ThresholdLimit
+                        ThresholdLimit = item.ThresholdLimit,
+                        CreatedAt = item.CreatedAt.ToString("o"),
+                        UpdatedAt = item.UpdatedAt?.ToString("o") ?? "",
+                        DeletedAt = item.DeletedAt?.ToString("o") ?? "",
                     });
                 }
 
@@ -64,7 +67,10 @@ namespace InventoryService.Src.Grpc
                         ProductCategory = item.ProductCategory,
                         ProductStock = item.StockQuantity,
                         ProductStatus = item.ProductStatus,
-                        ThresholdLimit = item.ThresholdLimit
+                        ThresholdLimit = item.ThresholdLimit,
+                        CreatedAt = item.CreatedAt.ToString("o"),
+                        UpdatedAt = item.UpdatedAt?.ToString("o") ?? "",
+                        DeletedAt = item.DeletedAt?.ToString("o") ?? "",
                     }
                 };
 

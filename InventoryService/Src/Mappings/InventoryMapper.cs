@@ -19,7 +19,10 @@ namespace InventoryService.Src.Mappings
                 ProductCategory = inventory.ProductCategory,
                 StockQuantity = inventory.StockQuantity,
                 ProductStatus = inventory.ProductStatus,
-                ThresholdLimit = inventory.ThresholdLimit
+                ThresholdLimit = inventory.ThresholdLimit,
+                CreatedAt = inventory.CreatedAt,
+                UpdatedAt = inventory.UpdatedAt,
+                DeletedAt = inventory.DeletedAt
             };
         }
 

@@ -13,5 +13,8 @@ namespace InventoryService.Src.Dtos
         public int StockQuantity { get; set; }
         public bool ProductStatus { get; set; } = true;
         public int ThresholdLimit { get; set; } = 0;
+        public DateTime CreatedAt { get; set; }
+        public DateTime? UpdatedAt { get; set; }
+        public DateTime? DeletedAt { get; set; }
     }
 }
