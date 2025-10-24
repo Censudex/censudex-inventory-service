@@ -1,7 +1,9 @@
 using DotNetEnv;
+using InventoryService.Src.Consumers;
 using InventoryService.Src.Data;
 using InventoryService.Src.Grpc;
 using InventoryService.Src.Interface;
+using InventoryService.Src.Messages;
 using InventoryService.Src.Repositories;
 using InventoryService.Src.Shared.Messages;
 using MassTransit;
@@ -37,20 +39,73 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 builder.Services.AddMassTransit(x =>
 {
+    // Registrar el consumer para escuchar order.created
+    x.AddConsumer<OrderCreatedConsumer>();
+
     x.UsingRabbitMq((context, cfg) =>
     {
-        cfg.Host("localhost", "/", h =>
+        // Configurar host de RabbitMQ
+        cfg.Host(
+            Environment.GetEnvironmentVariable("RABBITMQ_HOST") ?? "localhost",
+            "/",
+            h =>
+            {
+                h.Username(Environment.GetEnvironmentVariable("RABBITMQ_USERNAME") ?? "guest");
+                h.Password(Environment.GetEnvironmentVariable("RABBITMQ_PASSWORD") ?? "guest");
+            });
+
+        // === MENSAJES QUE PUBLICAS (Producer) ===
+        
+        // Configurar StockAlertMessage (stock.low)
+        cfg.Message<StockAlertMessage>(e =>
         {
-            h.Username("guest");
-            h.Password("guest");
+            e.SetEntityName("inventory_events");
+        });
+
+        cfg.Publish<StockAlertMessage>(e =>
+        {
+            e.ExchangeType = "topic";
         });
 
         cfg.Send<StockAlertMessage>(s =>
         {
             s.UseRoutingKeyFormatter(context => "stock.low");
-        });          
+        });
 
-        cfg.ConfigureEndpoints(context);       
+        // Configurar OrderFailedStockMessage (order.failed.stock)
+        cfg.Message<OrderFailedStockMessage>(e =>
+        {
+            e.SetEntityName("order_events");
+        });
+
+        cfg.Publish<OrderFailedStockMessage>(e =>
+        {
+            e.ExchangeType = "topic";
+        });
+
+        cfg.Send<OrderFailedStockMessage>(s =>
+        {
+            s.UseRoutingKeyFormatter(context => "order.failed.stock");
+        });
+
+        // === MENSAJES QUE CONSUMES (Consumer) ===
+        
+        // Configurar cola para escuchar order.created
+        cfg.ReceiveEndpoint("inventory-order-queue", e =>
+        {
+            // Configurar el consumer
+            e.ConfigureConsumer<OrderCreatedConsumer>(context);
+            
+            // Bind a la cola con el routing key order.created
+            e.Bind("order_events", x =>
+            {
+                x.RoutingKey = "order.created";
+                x.ExchangeType = "topic";
+            });
+        });
+
+        // Configurar endpoints automáticamente
+        cfg.ConfigureEndpoints(context);
     });
 });
 
