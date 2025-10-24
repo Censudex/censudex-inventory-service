@@ -21,6 +21,11 @@ builder.Services.AddScoped<IInventoryService, InventoryService.Src.Service.Inven
 
 builder.WebHost.ConfigureKestrel(options =>
 {
+    options.ListenLocalhost(5110, listenOptions =>
+    {
+        listenOptions.Protocols = Microsoft.AspNetCore.Server.Kestrel.Core.HttpProtocols.Http1;
+    });
+
     options.ListenLocalhost(5001, o =>
     {
         o.Protocols = Microsoft.AspNetCore.Server.Kestrel.Core.HttpProtocols.Http2;
