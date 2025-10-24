@@ -82,7 +82,11 @@ namespace InventoryService.Src.Service
 
                 var stockAlertMessage = new StockAlertMessage
                 {
-                    Sender = "InventoryService",
+                    ProductId = inventoryItem.ProductId,
+                    ProductName = inventoryItem.ProductName,
+                    ProductCategory = inventoryItem.ProductCategory,
+                    CurrentStock = inventoryItem.StockQuantity,
+                    ThresholdLimit = inventoryItem.ThresholdLimit,  
                     Text = $"Alert: Stock for product '{inventoryItem.ProductName}' (ID: {inventoryItem.ProductId}) is below the threshold limit. Current stock: {inventoryItem.StockQuantity}."
                 };
 
