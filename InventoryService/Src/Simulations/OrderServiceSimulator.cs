@@ -8,10 +8,18 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace InventoryService.Src.Simulations
 {
+    /// <summary>
+    /// Simula la creación de órdenes para pruebas.
+    /// </summary>
     [ApiController]
     [Route("api/[controller]")]
     public class OrderServiceSimulator : ControllerBase
     {
+        /// <summary>
+        /// Simula la creación de una orden publicando un evento de "OrderCreated".
+        /// </summary>
+        /// <param name="publishEndpoint">Endpoint de publicación para mensajes.</param>
+        /// <returns>Resultado de la simulación.</returns>
         [HttpPost("test/simulate-order")]
         public async Task<ActionResult> SimulateOrder([FromServices] IPublishEndpoint publishEndpoint)
         {

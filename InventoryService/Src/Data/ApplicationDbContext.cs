@@ -7,15 +7,29 @@ using Microsoft.EntityFrameworkCore;
 
 namespace InventoryService.Src.Data
 {
-    public class ApplicationDbContext : DbContext   
+    /// <summary>
+    /// Contexto de base de datos para la aplicación.
+    /// </summary>
+    public class ApplicationDbContext : DbContext
     {
+        /// <summary>
+        /// Constructor del contexto de base de datos.
+        /// </summary>
+        /// <param name="options">Opciones del contexto de base de datos.</param>
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
         }
 
-        public DbSet<Inventory> Inventory  { get; set; }
+        /// <summary>
+        /// Conjunto de inventarios.
+        /// </summary>
+        public DbSet<Inventory> Inventory { get; set; }
 
+        /// <summary>
+        /// Configuración del modelo de datos.
+        /// </summary>
+        /// <param name="modelBuilder"></param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -34,18 +48,30 @@ namespace InventoryService.Src.Data
             });
         }
 
+        /// <summary>
+        /// Guardar cambios con actualización de timestamps.
+        /// </summary>
+        /// <returns></returns>
         public override int SaveChanges()
         {
             UpdateTimestamps();
             return base.SaveChanges();
         }
 
+        /// <summary>
+        /// Guardar cambios asíncronos con actualización de timestamps.
+        /// </summary>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
             UpdateTimestamps();
             return await base.SaveChangesAsync(cancellationToken);
         }
 
+        /// <summary>
+        /// Actualizar los timestamps de creación y actualización.
+        /// </summary>
         private void UpdateTimestamps()
         {
             var entries = ChangeTracker.Entries<Inventory>();

@@ -6,15 +6,29 @@ using InventoryService.Src.Models;
 
 namespace InventoryService.Src.Data
 {
+    /// <summary>
+    /// Clase seeder para poblar la base de datos con datos iniciales.
+    /// </summary>
     public class DataSeeder
     {
+        /// <summary>
+        /// Contexto de la base de datos.
+        /// </summary>
         private readonly ApplicationDbContext _dbContext;
 
+        /// <summary>
+        /// Constructor de la clase DataSeeder.
+        /// </summary>
+        /// <param name="dbContext">Contexto de la base de datos.</param>
         public DataSeeder(ApplicationDbContext dbContext)
         {
             _dbContext = dbContext;
         }
 
+        /// <summary>
+        /// Método para sembrar datos iniciales en la base de datos.
+        /// </summary>
+        /// <returns></returns>
         public async Task SeedAsync()
         {
             if (!_dbContext.Inventory.Any())

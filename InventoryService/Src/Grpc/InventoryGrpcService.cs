@@ -10,17 +10,38 @@ using InventoryService.Src.Models;
 
 namespace InventoryService.Src.Grpc
 {
+    /// <summary>
+    /// Servicio gRPC para la gestión del inventario.
+    /// </summary>
     public class InventoryGrpcService : Protos.InventoryService.InventoryServiceBase
     {
+        /// <summary>
+        /// Repositorio de inventario.
+        /// </summary>
         private readonly IInventoryRepository _inventoryRepository;
+        /// <summary>
+        /// Servicio de inventario.
+        /// </summary>
         private readonly IInventoryService _inventoryService;
 
+        /// <summary>
+        /// Constructor del servicio gRPC de inventario.
+        /// </summary>
+        /// <param name="inventoryRepository">Repositorio de inventario.</param>
+        /// <param name="inventoryService">Servicio de inventario.</param>
         public InventoryGrpcService(IInventoryRepository inventoryRepository, IInventoryService inventoryService)
         {
             _inventoryRepository = inventoryRepository;
             _inventoryService = inventoryService;
         }
 
+        /// <summary>
+        /// Obtiene todos los elementos del inventario.
+        /// </summary>
+        /// <param name="request">Request con los parámetros de la consulta.</param>
+        /// <param name="context">Contexto de la llamada gRPC.</param>
+        /// <returns>Response con la lista de elementos del inventario.</returns>
+        /// <exception cref="RpcException">Error al obtener los elementos del inventario.</exception>
         public override async Task<GetAllInventoryItemsResponse> GetAllInventoryItems(GetAllInventoryItemsRequest request, ServerCallContext context)
         {
             try
@@ -52,6 +73,13 @@ namespace InventoryService.Src.Grpc
             }
         }
 
+        /// <summary>
+        /// Obtiene un elemento del inventario por su ID.
+        /// </summary>
+        /// <param name="request">Request con el ID del elemento a obtener.</param>
+        /// <param name="context">Contexto de la llamada gRPC.</param>
+        /// <returns>Response con el elemento del inventario.</returns>
+        /// <exception cref="RpcException">Error al obtener el elemento del inventario.</exception>
         public override async Task<GetInventoryItemByIdResponse> GetInventoryItemById(GetInventoryItemByIdRequest request, ServerCallContext context)
         {
             try
@@ -86,6 +114,13 @@ namespace InventoryService.Src.Grpc
             }
         }
 
+        /// <summary>
+        /// Actualiza el stock de un elemento del inventario.
+        /// </summary>
+        /// <param name="request">Request con los datos del elemento a actualizar.</param>
+        /// <param name="context">Contexto de la llamada gRPC.</param>
+        /// <returns>Response con el resultado de la operación de actualización.</returns>
+        /// <exception cref="RpcException">Error al actualizar el elemento del inventario.</exception>
         public override async Task<UpdateInventoryItemStockResponse> UpdateInventoryItemStock(UpdateInventoryItemStockRequest request, ServerCallContext context)
         {
             try

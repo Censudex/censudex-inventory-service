@@ -11,17 +11,37 @@ using MassTransit.Testing;
 
 namespace InventoryService.Src.Service
 {
+    /// <summary>
+    /// Servicio para la gestión del inventario.
+    /// </summary>
     public class InventoryService : IInventoryService
     {
+        /// <summary>
+        /// Repositorio de inventario.
+        /// </summary>
         private readonly IInventoryRepository _inventoryRepository;
+        /// <summary>
+        /// Endpoint de publicación para mensajes.
+        /// </summary>
         private readonly IPublishEndpoint _publishEndpoint;
 
+        /// <summary>
+        /// Constructor del servicio de inventario.
+        /// </summary>
+        /// <param name="inventoryRepository">Repositorio de inventario.</param>
+        /// <param name="publishEndpoint">Endpoint de publicación para mensajes.</param>
         public InventoryService(IInventoryRepository inventoryRepository, IPublishEndpoint publishEndpoint)
         {
             _inventoryRepository = inventoryRepository;
             _publishEndpoint = publishEndpoint;
         }
 
+        /// <summary>
+        /// Actualiza el stock de un artículo de inventario.
+        /// </summary>
+        /// <param name="id">ID del artículo de inventario.</param>
+        /// <param name="updateStockDto">Datos de actualización del stock.</param>
+        /// <returns>Resultado de la operación de actualización.</returns>
         public async Task<UpdateOperationDto> UpdateInventoryItemStockAsync(Guid id, UpdateStockDto updateStockDto)
         {
             var inventoryItem = await _inventoryRepository.GetInventoryEntityByIdAsync(id);

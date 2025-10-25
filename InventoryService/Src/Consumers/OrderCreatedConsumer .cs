@@ -10,17 +10,36 @@ using MassTransit;
 
 namespace InventoryService.Src.Consumers
 {
+    /// <summary>
+    /// Consumidor de mensajes de orden creada.
+    /// </summary>
     public class OrderCreatedConsumer : IConsumer<OrderCreatedMessage>
     {
+        /// <summary>
+        /// Servicio de inventario.
+        /// </summary>
         private readonly IInventoryService _inventoryService;
+        /// <summary>
+        /// Endpoint de publicación para enviar mensajes.
+        /// </summary>
         private readonly IPublishEndpoint _publishEndpoint;
 
+        /// <summary>
+        /// Constructor del consumidor.
+        /// </summary>
+        /// <param name="inventoryService">Servicio de inventario.</param>
+        /// <param name="publishEndpoint">Endpoint de publicación para enviar mensajes.</param>
         public OrderCreatedConsumer(IInventoryService inventoryService, IPublishEndpoint publishEndpoint)
         {
             _inventoryService = inventoryService;
             _publishEndpoint = publishEndpoint;
         }
 
+        /// <summary>
+        /// Consume el mensaje de orden creada.
+        /// </summary>
+        /// <param name="context">Contexto de consumo del mensaje.</param>
+        /// <returns>Respuesta de la operación de consumo.</returns>
         public async Task Consume(ConsumeContext<OrderCreatedMessage> context)
         {
             var order = context.Message;
