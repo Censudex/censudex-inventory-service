@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace InventoryService.Src.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20251021233219_InitialCreate")]
+    [Migration("20251031190844_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -35,9 +35,6 @@ namespace InventoryService.Src.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
                         .HasDefaultValueSql("NOW()");
-
-                    b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("ProductCategory")
                         .IsRequired()

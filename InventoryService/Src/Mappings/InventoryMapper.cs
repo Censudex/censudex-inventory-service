@@ -30,7 +30,6 @@ namespace InventoryService.Src.Mappings
                 ThresholdLimit = inventory.ThresholdLimit,
                 CreatedAt = inventory.CreatedAt,
                 UpdatedAt = inventory.UpdatedAt,
-                DeletedAt = inventory.DeletedAt
             };
         }
 

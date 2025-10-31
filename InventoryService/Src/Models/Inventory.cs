@@ -42,9 +42,5 @@ namespace InventoryService.Src.Models
         /// Fecha de última actualización del registro.
         /// </summary>
         public DateTime? UpdatedAt { get; set; }
-        /// <summary>
-        /// Fecha de eliminación del registro.
-        /// </summary>
-        public DateTime? DeletedAt { get; set; }
     }
 }

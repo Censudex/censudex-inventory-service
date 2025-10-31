@@ -55,13 +55,8 @@ namespace InventoryService.Src.Grpc
                     {
                         ProductId = item.ProductId.ToString(),
                         ProductName = item.ProductName,
-                        ProductCategory = item.ProductCategory,
                         ProductStock = item.StockQuantity,
                         ProductStatus = item.ProductStatus,
-                        ThresholdLimit = item.ThresholdLimit,
-                        CreatedAt = item.CreatedAt.ToString("o"),
-                        UpdatedAt = item.UpdatedAt?.ToString("o") ?? "",
-                        DeletedAt = item.DeletedAt?.ToString("o") ?? "",
                     });
                 }
 
@@ -88,7 +83,7 @@ namespace InventoryService.Src.Grpc
 
                 var response = new GetInventoryItemByIdResponse
                 {
-                    Item = new InventoryItem
+                    Item = new InventoryItemById
                     {
                         ProductId = item.ProductId.ToString(),
                         ProductName = item.ProductName,
@@ -98,7 +93,6 @@ namespace InventoryService.Src.Grpc
                         ThresholdLimit = item.ThresholdLimit,
                         CreatedAt = item.CreatedAt.ToString("o"),
                         UpdatedAt = item.UpdatedAt?.ToString("o") ?? "",
-                        DeletedAt = item.DeletedAt?.ToString("o") ?? "",
                     }
                 };
 

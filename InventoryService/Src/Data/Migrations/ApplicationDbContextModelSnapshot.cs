@@ -33,9 +33,6 @@ namespace InventoryService.Src.Data.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasDefaultValueSql("NOW()");
 
-                    b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("timestamp with time zone");
-
                     b.Property<string>("ProductCategory")
                         .IsRequired()
                         .HasMaxLength(100)

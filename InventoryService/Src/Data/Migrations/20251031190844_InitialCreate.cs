@@ -22,8 +22,7 @@ namespace InventoryService.Src.Data.Migrations
                     ProductStatus = table.Column<bool>(type: "boolean", nullable: false, defaultValue: true),
                     ThresholdLimit = table.Column<int>(type: "integer", nullable: false, defaultValue: 0),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, defaultValueSql: "NOW()"),
-                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    DeletedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
+                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {

@@ -44,7 +44,6 @@ namespace InventoryService.Src.Data
                 entity.Property(e => e.ThresholdLimit).IsRequired().HasDefaultValue(0);
                 entity.Property(e => e.CreatedAt).IsRequired().HasDefaultValueSql("NOW()");
                 entity.Property(e => e.UpdatedAt).IsRequired(false);
-                entity.Property(e => e.DeletedAt).IsRequired(false);
             });
         }
 
