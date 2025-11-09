@@ -38,5 +38,12 @@ namespace InventoryService.Src.Interface
         /// <param name="item">Entidad de inventario a actualizar.</param>
         /// <returns>Entidad de inventario actualizada.</returns>
         public Task<Inventory> UpdateInventoryItem(Inventory item);
+
+        /// <summary>
+        /// Crea un nuevo elemento de inventario.
+        /// </summary>
+        /// <param name="item">Entidad de inventario a crear.</param>
+        /// <returns>Entidad de inventario creada.</returns>
+        public Task CreateInventoryItem(Inventory item);
     }
 }

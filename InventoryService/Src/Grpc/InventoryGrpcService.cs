@@ -150,14 +150,52 @@ namespace InventoryService.Src.Grpc
                 };
 
                 return response;
-                
-            } catch (RpcException)
+
+            }
+            catch (RpcException)
             {
                 throw;
             }
             catch (Exception)
             {
                 throw new RpcException(new Status(StatusCode.Internal, "An error occurred while updating the inventory item stock."));
+            }
+        }
+
+        public override async Task<CreateInventoryItemResponse> CreateInventoryItem(CreateInventoryItemRequest request, ServerCallContext context)
+        {
+            try
+            {
+                var newItem = new Inventory
+                {
+                    ProductId = Guid.Parse(request.ProductId),
+                    ProductName = request.ProductName,
+                    ProductCategory = request.ProductCategory,
+                    StockQuantity = request.ProductStock,
+                    ProductStatus = request.ProductStatus,
+                    ThresholdLimit = Random.Shared.Next(5, 30),
+                    CreatedAt = DateTime.UtcNow
+                };
+
+                await _inventoryRepository.CreateInventoryItem(newItem);
+
+                var response = new CreateInventoryItemResponse
+                {
+                    Success = true,
+                    Message = "Inventory item created successfully.",
+                    ProductId = newItem.ProductId.ToString(),
+                    ProductName = newItem.ProductName,
+                    ProductCategory = newItem.ProductCategory,
+                    ProductStock = newItem.StockQuantity,
+                    ProductStatus = newItem.ProductStatus,
+                    ThresholdLimit = newItem.ThresholdLimit
+                };
+
+                return response;
+            }
+            catch (Exception ex)
+            {
+                throw new RpcException(new Status(StatusCode.Internal, $"An error occurred while creating the inventory item: {ex.Message}"));
             }
         }
     }

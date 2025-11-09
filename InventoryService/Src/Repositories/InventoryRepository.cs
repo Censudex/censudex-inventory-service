@@ -31,6 +31,17 @@ namespace InventoryService.Src.Repositories
         }
 
         /// <summary>
+        /// Crea un nuevo elemento de inventario.
+        /// </summary>
+        /// <param name="item">Entidad de inventario a crear.</param>
+        /// <returns>Entidad de inventario creada.</returns>
+        public async Task CreateInventoryItem(Inventory item)
+        {
+            await _context.Inventory.AddAsync(item);
+            await _context.SaveChangesAsync();
+        }
+
+        /// <summary>
         /// Obtiene todos los elementos del inventario.
         /// </summary>
         /// <returns>Lista de elementos del inventario.</returns>
