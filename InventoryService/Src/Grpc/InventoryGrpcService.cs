@@ -55,6 +55,7 @@ namespace InventoryService.Src.Grpc
                     {
                         ProductId = item.ProductId.ToString(),
                         ProductName = item.ProductName,
+                        ProductCategory = item.ProductCategory,
                         ProductStock = item.StockQuantity,
                         ProductStatus = item.ProductStatus,
                     });

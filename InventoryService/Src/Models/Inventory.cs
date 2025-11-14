@@ -29,7 +29,7 @@ namespace InventoryService.Src.Models
         /// <summary>
         /// Estado del producto (disponible o no).
         /// </summary>
-        public bool ProductStatus { get; set; } = true;
+        public string ProductStatus { get; set; } = string.Empty;
         /// <summary>
         /// Límite de umbral para el stock del producto.
         /// </summary>

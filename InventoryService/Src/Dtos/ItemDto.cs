@@ -29,7 +29,7 @@ namespace InventoryService.Src.Dtos
         /// <summary>
         /// Estado del producto (activo/inactivo).
         /// </summary>
-        public bool ProductStatus { get; set; } = true;
+        public string ProductStatus { get; set; } = string.Empty;
         /// <summary>
         /// Límite de umbral para el producto.
         /// </summary>

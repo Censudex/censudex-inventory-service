@@ -35,16 +35,16 @@ namespace InventoryService.Src.Data
             {
                 var inventoryItems = new List<Inventory>
                 {
-                    new Inventory { ProductName = "Laptop ASUS TUF", ProductCategory = "Electronics", StockQuantity = 100, ProductStatus = true, ThresholdLimit = 10 },
-                    new Inventory { ProductName = "Wireless Mouse", ProductCategory = "Accessories", StockQuantity = 200, ProductStatus = true, ThresholdLimit = 20 },
-                    new Inventory { ProductName = "Mechanical Keyboard", ProductCategory = "Accessories", StockQuantity = 300, ProductStatus = true, ThresholdLimit = 30 },
-                    new Inventory { ProductName = "Gaming Headset", ProductCategory = "Audio", StockQuantity = 150, ProductStatus = true, ThresholdLimit = 15 },
-                    new Inventory { ProductName = "27-inch Monitor", ProductCategory = "Electronics", StockQuantity = 80, ProductStatus = true, ThresholdLimit = 8 },
-                    new Inventory { ProductName = "External SSD 1TB", ProductCategory = "Storage", StockQuantity = 120, ProductStatus = true, ThresholdLimit = 12 },
-                    new Inventory { ProductName = "USB-C Hub", ProductCategory = "Peripherals", StockQuantity = 250, ProductStatus = true, ThresholdLimit = 25 },
-                    new Inventory { ProductName = "Webcam HD", ProductCategory = "Video", StockQuantity = 170, ProductStatus = true, ThresholdLimit = 17 },
-                    new Inventory { ProductName = "Smartphone Stand", ProductCategory = "Accessories", StockQuantity = 400, ProductStatus = true, ThresholdLimit = 40 },
-                    new Inventory { ProductName = "Bluetooth Speaker", ProductCategory = "Audio", StockQuantity = 220, ProductStatus = true, ThresholdLimit = 22 }
+                    new Inventory { ProductName = "Laptop ASUS TUF", ProductCategory = "Electronics", StockQuantity = 100, ProductStatus = "activo", ThresholdLimit = 10 },
+                    new Inventory { ProductName = "Wireless Mouse", ProductCategory = "Accessories", StockQuantity = 200, ProductStatus = "activo", ThresholdLimit = 20 },
+                    new Inventory { ProductName = "Mechanical Keyboard", ProductCategory = "Accessories", StockQuantity = 300, ProductStatus = "activo", ThresholdLimit = 30 },
+                    new Inventory { ProductName = "Gaming Headset", ProductCategory = "Audio", StockQuantity = 150, ProductStatus = "activo", ThresholdLimit = 15 },
+                    new Inventory { ProductName = "27-inch Monitor", ProductCategory = "Electronics", StockQuantity = 80, ProductStatus = "activo", ThresholdLimit = 8 },
+                    new Inventory { ProductName = "External SSD 1TB", ProductCategory = "Storage", StockQuantity = 120, ProductStatus = "activo", ThresholdLimit = 12 },
+                    new Inventory { ProductName = "USB-C Hub", ProductCategory = "Peripherals", StockQuantity = 250, ProductStatus = "activo", ThresholdLimit = 25 },
+                    new Inventory { ProductName = "Webcam HD", ProductCategory = "Video", StockQuantity = 170, ProductStatus = "activo", ThresholdLimit = 17 },
+                    new Inventory { ProductName = "Smartphone Stand", ProductCategory = "Accessories", StockQuantity = 400, ProductStatus = "activo", ThresholdLimit = 40 },
+                    new Inventory { ProductName = "Bluetooth Speaker", ProductCategory = "Audio", StockQuantity = 220, ProductStatus = "activo", ThresholdLimit = 22 }
                 };
 
                 await _dbContext.Inventory.AddRangeAsync(inventoryItems);
