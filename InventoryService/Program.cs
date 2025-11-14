@@ -76,6 +76,7 @@ builder.Services.AddMassTransit(x =>
         {
             s.UseRoutingKeyFormatter(context => "stock.low");
         });
+        
 
         // Configurar OrderFailedStockMessage (order.failed.stock)
         cfg.Message<OrderFailedStockMessage>(e =>
@@ -94,7 +95,25 @@ builder.Services.AddMassTransit(x =>
         });
 
         // === MENSAJES QUE CONSUMES (Consumer) ===
-        
+
+        cfg.ReceiveEndpoint("stock-low-temp-queue", e =>
+        {
+            e.Bind("inventory_events", x =>
+            {
+                x.RoutingKey = "stock.low";
+                x.ExchangeType = "topic";
+            });
+        });
+
+        cfg.ReceiveEndpoint("order-failed-temp-queue", e =>
+        {
+            e.Bind("order_events", x =>
+            {
+                x.RoutingKey = "order.failed.stock";
+                x.ExchangeType = "topic";
+            });
+        });
+
         // Configurar cola para escuchar order.created
         cfg.ReceiveEndpoint("inventory-order-queue", e =>
         {

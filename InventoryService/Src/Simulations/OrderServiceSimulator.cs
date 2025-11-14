@@ -31,8 +31,8 @@ namespace InventoryService.Src.Simulations
                 {
                     new OrderItem
                     {
-                        ProductId = Guid.Parse("019a091e-f285-7167-ada4-0c1ba7772cef"),
-                        Quantity = 2
+                        ProductId = Guid.Parse("019a83e7-ca65-7a1e-a1ce-4b72d0c8ea27"),
+                        Quantity = 90
                     }
                 },
                 CreatedAt = DateTime.UtcNow
@@ -58,7 +58,7 @@ namespace InventoryService.Src.Simulations
                 {
                     new OrderItem 
                     { 
-                        ProductId = Guid.Parse("019a091e-f285-7167-ada4-0c1ba7772cef"),
+                        ProductId = Guid.Parse("019a83e7-ca65-7a1e-a1ce-4b72d0c8ea27"),
                         Quantity = 1000 // ← Cantidad mayor al stock disponible
                     }
                 },
