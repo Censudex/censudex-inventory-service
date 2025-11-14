@@ -70,7 +70,6 @@ builder.Services.AddMassTransit(x =>
         cfg.Publish<StockAlertMessage>(e =>
         {
             e.ExchangeType = "topic";
-            e.Durable = true;
         });
 
         cfg.Send<StockAlertMessage>(s =>
@@ -87,7 +86,6 @@ builder.Services.AddMassTransit(x =>
         cfg.Publish<OrderFailedStockMessage>(e =>
         {
             e.ExchangeType = "topic";
-            e.Durable = true;
         });
 
         cfg.Send<OrderFailedStockMessage>(s =>
@@ -102,16 +100,12 @@ builder.Services.AddMassTransit(x =>
         {
             // Configurar el consumer
             e.ConfigureConsumer<OrderCreatedConsumer>(context);
-
-            e.Durable = true;
-            e.AutoDelete = false;
             
             // Bind a la cola con el routing key order.created
             e.Bind("order_events", x =>
             {
                 x.RoutingKey = "order.created";
                 x.ExchangeType = "topic";
-                x.Durable = true;
             });
         });
 
