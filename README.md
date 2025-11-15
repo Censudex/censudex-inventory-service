@@ -404,26 +404,3 @@ Accede a: http://localhost:15672
 - **Password:** guest
 
 Ve a **Queues** y verifica que `inventory-order-queue` se cree automáticamente.
-
-### 2. Probar Publicación de Alerta
-```bash
-# Actualiza stock para que caiga bajo el umbral
-curl -X PATCH http://localhost:5000/api/inventory/{id}/stock \
--H "Content-Type: application/json" \
--d '{"operation":"decrease","quantity":50}'
-```
-
-Verifica en RabbitMQ UI → **Exchanges** → `inventory_events`
-
-### 4. Simular Orden Creada
-```bash
-curl -X POST http://localhost:5000/api/inventory/test/simulate-order
-```
-
-Verifica en la consola el mensaje:
-```
-[RABBITMQ CONSUMER] Recibida orden: {guid}
-[RABBITMQ] Stock actualizado: Laptop HP - 50 → 48
-[RABBITMQ] Orden procesada exitosamente
-
-```
